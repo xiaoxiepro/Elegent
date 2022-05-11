@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		table {
+			border: 1px solid #e9e9e9;
+			border-spacing: 0;
+		}
+
+		th {
+			border: 1px solid #f7f7f7;
+			color: #5c6b77;
+			font-weight: 600;
+		}
+
+		td {
+			padding: 8px 16px;
+			border: 1px solid #e9e9e9;
+		}
+	</style>
+	<body>
+		图书类型
+		<select id='typesele' onchange='show()'>
+			<option>全部</option>
+			<option>文学</option>
+			<option>阿伟</option>
+		</select>
+		<table border="1" cellspacing="" cellpadding="">
+			<tr>
+				<th><label id='quanx' onclick='qx()'>全选</label></th>
+				<th>序号</th>
+				<th>商品图片</th>
+				<th>书籍名</th>
+				<th>分类</th>
+				<th>价格</th>
+				<th>购买数量</th>
+				<th>操作</th>
+			</tr>
+			<tr name='awei'>
+				<td><input type="checkbox" name="cb" id="" value="" onchange='getsum()' /></td>
+				<td>1</td>
+				<td><img src="images/1.png" style='width: 30px;' onmouseover='mouseoverimg(this.src)' onmouseout="
+				mouseoutimg()"></td>
+				<td>或者</td>
+				<td><label name='lx'>阿伟</label></td>
+				<td>
+					<label name='jg'>25</label>
+				</td>
+				<td>
+					<button type="button" onclick='jia("num1")'>+</button>
+					<label id='num1'>1</label>
+					<button type="button" onclick='jian("num1")'>-</button>
+				</td>
+				<td><button type="button" onclick='yichu(1)'>删除</button></td>
+			</tr>
+			<tr name='awei'>
+				<td><input type="checkbox" name="cb" id="" value="" onchange='getsum()' /></td>
+				<td>2</td>
+				<td><img src="images/2.png" style='width: 30px;' onmouseover='mouseoverimg(this.src)' onmouseout="
+				mouseoutimg()"></td>
+				<td>或者</td>
+				<td><label name='lx'>阿伟</label></td>
+				<td><label name='jg'>35</label></td>
+				<td>
+					<button type="button" onclick='jia("num2")'>+</button>
+					<label id='num2'>1</label>
+					<button type="button" onclick='jian("num2")'>-</button>
+				</td>
+				<td><button type="button" onclick='yichu(2)'>删除</button></td>
+			</tr>
+			<tr name='wenx'>
+				<td><input type="checkbox" name="cb" id="" value="" onchange='getsum()' /></td>
+				<td>3</td>
+				<td><img src="images/2.png" style='width: 30px;' onmouseover='mouseoverimg(this.src)' onmouseout="
+				mouseoutimg()"></td>
+				<td>或者</td>
+				<td><label name='lx'>文学</label></td>
+				<td><label name='jg'>45</label></td>
+				<td>
+					<button type="button" onclick='jia("num3")'>+</button>
+					<label id='num3'>1</label>
+					<button type="button" onclick='jian("num3")'>-</button>
+				</td>
+				<td><button type="button" onclick='yichu(3)'>删除</button></td>
+			</tr>
+			<tr name='wenx'>
+				<td><input type="checkbox" name="cb" id="" value="" onchange='getsum()' /></td>
+				<td>4</td>
+				<td><img src="images/1.png" style='width: 30px;' onmouseover='mouseoverimg(this.src)' onmouseout="
+				mouseoutimg()"></td>
+				<td>或者</td>
+				<td><label name='lx'>文学</label></td>
+				<td><label name='jg'>55</label></td>
+				<td>
+					<button type="button" onclick='jia("num4")'>+</button>
+					<label id='num4'>1</label>
+					<button type="button" onclick='jian("num4")'>-</button>
+				</td>
+				<td><button type="button" onclick='yichu(4)'>删除</button></td>
+			</tr>
+			<tr name='wenx'>
+				<td><input type="checkbox" name="cb" id="" value="" onchange='getsum()' /></td>
+				<td>5</td>
+				<td><img src="images/1.png" style='width: 30px;' onmouseover='mouseoverimg(this.src)' onmouseout="
+				mouseoutimg()"></td>
+				<td>或者</td>
+				<td><label name='lx'>文学</label></td>
+				<td><label name='jg'>65</label></td>
+				<td>
+					<button type="button" onclick='jia("num5")'>+</button>
+					<label id='num5'>1</label>
+					<button type="button" onclick='jian("num5")'>-</button>
+				</td>
+				<td><button type="button" onclick='yichu(5)'>删除</button></td>
+			</tr>
+		</table>
+		<h1 style="display: none;">购物车为空</h1>
+		总金额：<label id='zjg'>0</label>元
+		<img id='maximg' style="width: 200px;height: 200px;display: none;">
+	</body>
+	<script type="text/javascript">
+		var maximg = document.getElementById('maximg');
+		var tr = document.getElementsByTagName('tr');
+		var h1 = document.getElementsByTagName('h1');
+		var h = 0
+
+		function mouseoverimg(lj) {
+			maximg.src = lj
+			maximg.style.display = 'block'
+		}
+
+		function mouseoutimg() {
+			maximg.style.display = 'none'
+		}
+
+		function yichu(index) {
+			var cb = document.getElementsByName('cb')
+			cb[index - 1].checked = false
+			getsum()
+			tr[index].style.display = 'none'
+			h++
+			if (h == (tr.length - 1)) {
+				tr[0].style.display = 'none'
+				h1[0].style.display = 'block'
+			}
+		}
+
+		function jia(numid) {
+			var num = document.getElementById(numid).innerHTML
+			var endnum = parseInt(num) + 1
+			document.getElementById(numid).innerHTML = endnum
+			getsum()
+		}
+
+		function jian(numid) {
+
+			var num = document.getElementById(numid).innerHTML
+			if (num > 1) {
+				var endnum = parseInt(num) - 1
+			} else {
+				var endnum = 1
+			}
+			document.getElementById(numid).innerHTML = endnum
+			getsum()
+		}
+
+		function getsum() {
+			var cb = document.getElementsByName('cb')
+			var jg = document.getElementsByName('jg')
+			var zjg = 0
+			for (var i = 0; i < cb.length; i++) {
+				if (cb[i].checked) {
+					zjg += parseInt(jg[i].innerHTML) * parseInt(document.getElementById('num' + (i + 1) + '').innerHTML)
+				}
+			}
+			document.getElementById('zjg').innerHTML = zjg
+		}
+
+		function show() {
+			var type=document.getElementById('typesele').value
+			var aw=document.getElementsByName('awei')
+			var wx=document.getElementsByName('wenx')
+			if(type=='阿伟'){
+				showtype(aw)
+				xiaoshi(wx)
+			}
+			if(type=='文学'){
+				showtype(wx)
+				xiaoshi(aw)
+			}
+			if(type=='全部'){
+				showtype(aw)
+				showtype(wx)
+			}
+			
+		}
+		function showtype(typesel){
+			for(var i=0;i<typesel.length;i++){
+				typesel[i].style.visibility = 'visible'
+			}
+		}
+		function xiaoshi(typesel){
+			for(var i=0;i<typesel.length;i++){
+				typesel[i].style.visibility = 'collapse'
+			}
+		}
+
+		function qx() {
+			var cb = document.getElementsByName('cb')
+			for (var i = 0; i < cb.length; i++) {
+				if (cb[i].checked == true) {
+					cb[i].checked = false
+				} else {
+					cb[i].checked = true
+				}
+			}
+			getsum()
+		} 
+		
+	</script>
+</html>
